@@ -1,0 +1,6 @@
+.profile-picture.story-active {
+    border: 2px solid transparent;
+    background: linear-gradient(white, white), radial-gradient(circle at top left, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
