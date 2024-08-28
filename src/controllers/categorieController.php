@@ -2,7 +2,7 @@
 // importerle typmodel
 include_once '../models/categorieModel.php';
 
-class categorieContcateur
+class categorieControleur
 {
     private $cnx;
 

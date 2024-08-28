@@ -5,13 +5,13 @@ $(document).on('submit', '#inscriptionUsager', function (event) {
     event.preventDefault();
     // var nom = $('#client_nom').val();
 
-    // console.log('ok');
+    console.log('ok');
     // var alertmsg = "Opération effectuée avec succès";
 
     // alert("alertmsg")
 
     $.ajax({
-        url: "./traitement/mt-inscription-usager.php",
+        url: "src/traitement/mt-inscription-usager.php",
         type: "POST",
         data: new FormData(this),
         processData: false,
@@ -26,6 +26,7 @@ $(document).on('submit', '#inscriptionUsager', function (event) {
                 $('.message-usager').text(res.message);
 
             } else if (res.status == 200) {
+                console.log(res)
                 $('#inscriptionUsager')[0].reset();
                 $('.message-usager').addClass('alert-sucess')
                 $('.message-usager').html(res.message).fadeIn().delay(3000).fadeOut();

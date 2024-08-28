@@ -28,21 +28,26 @@ $objRend   = new rendreControleur();
 $objEff    = new effectuerController();
 $objDisp   = new disponibiliteControleur();
 $objServ   = new serviceControleur();
-$objCat    = new categorieContcateur();
+$objCat    = new categorieControleur();
 $objIner   = new interventionControleur();
 
+// initialisation
+$input="";
+$address;
 
 if (isset($_POST['input']) && isset($_POST['address'])) {
     // déclaration d'une variable session qui permettra de stocker le contenu
     // de l'information recherchée
     $_SESSION['input']   = htmlspecialchars($_POST['input']);
     $_SESSION['address'] = htmlspecialchars($_POST['address']);
+
+    // récupérons le besoin de l'utilisateur
+    // $input = htmlspecialchars($_POST['input']);
+    $input   = (!empty($_POST['input'])) ? htmlspecialchars($_POST['input']) : $_SESSION['input'];
+    $address = (!empty($_POST['address'])) ? htmlspecialchars($_POST['address']) : $_SESSION['address'];
 }
 
-// récupérons le besoin de l'utilisateur
-// $input = htmlspecialchars($_POST['input']);
-$input   = (!empty($_POST['input'])) ? htmlspecialchars($_POST['input']) : $_SESSION['input'];
-$address = (!empty($_POST['address'])) ? htmlspecialchars($_POST['address']) : $_SESSION['address'];
+
 
 // Nous appelons la méthide rechercherMot, celle-ci permet de rechercher
 // des mots clés via ces mots clés, nous aurons accès au service concerné

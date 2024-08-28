@@ -164,5 +164,23 @@ class prestataireControleur
         
         return $stmt;
     }
+
+    // Cette fonction affiche tous les prestataires
+    public function AfficherParNote($val,$start , $limite){
+        $query = "SELECT * FROM {$this->tablename} WHERE `note` > ? ORDER BY idprestataire DESC LIMIT {$start}, {$limite}";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->execute([$val]);
+        
+        return $stmt;
+    }
+
+    // Cette fonction affiche tous les prestataires
+    public function AfficherPrestataireParCategorie($val,$start , $limite){
+        $query = "SELECT * FROM {$this->tablename} WHERE `categorie` > ? ORDER BY idprestataire DESC LIMIT {$start}, {$limite}";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->execute([$val]);
+        
+        return $stmt;
+    }
     
 }

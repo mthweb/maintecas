@@ -2,7 +2,7 @@
     // récupération des données passées en paramètre dans l'URL
     $id                           = htmlspecialchars($_GET['id']);
     $info                         = htmlspecialchars($_GET['info']);
-    $_SESSION['service_en_cours'] = htmlspecialchars($_GET['info']);
+    $_SESSION['catego_en_cours']  = htmlspecialchars($_GET['id']);
 
 ?>
 <!-- navbar retour-->
@@ -26,7 +26,7 @@
 <!-- container-fluid -->
 <div class="container-fluid shadow">
     <!-- load data -->
-    <div id="result_profiles_services"></div>
+    <div id="result_profiles_categorie"></div>
     <!-- /load data -->
 </div>
 <!-- /container-fluid -->

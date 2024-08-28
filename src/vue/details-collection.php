@@ -3,7 +3,7 @@
 <!-- /head -->
 
 <!-- main section -->
-<?php include_once('../components/service-view.php') ?>
+<?php include_once('../components/details-view.php') ?>
 <!-- /main section -->
 
 <!-- javascript -->

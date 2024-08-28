@@ -47,5 +47,22 @@ class keywordControleur
         return $stmt;
     }
     
+    // Cette fonction affiche tous les employés
+    public function AfficherKeyword($start , $limite){
+        $query = "SELECT * FROM {$this->tablename} ORDER BY rand() DESC LIMIT {$start}, {$limite}";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    // Cette fonction compte tous les prestataires
+    public function CompterKeyword(){
+        $query = "SELECT COUNT(*) FROM {$this->tablename} ORDER BY id DESC";
+        $stmt = $this->cnx->prepare($query); 
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
 

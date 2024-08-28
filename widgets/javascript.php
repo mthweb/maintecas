@@ -30,9 +30,9 @@
 <script src="styles/modale/script.js"></script>
 
 <!-- script serveur -->
-<script src="script/script-usager.js"></script>
-<script src="script/script-entreprise.js"></script>
-<script src="script/script-recherche.js"></script>
+<script src="src/script/script-usager.js"></script>
+<script src="src/script/script-entreprise.js"></script>
+<script src="src/script/script-recherche.js"></script>
 
 <script>
         // $(document).ready(function() {

@@ -3,7 +3,7 @@
 <!-- /head -->
 
 <!-- main section -->
-<?php include_once('widgets/login-view.php') ?>
+<?php include_once('widgets/inscription-view.php') ?>
 <!-- /main section -->
 
 <!-- footer -->

@@ -37,6 +37,7 @@
 
     <!-- script serveur -->
     <script src="../script/script-recherche.js"></script>
+    <script src="../script/script-collection.js"></script>
     <!-- <script src="../script/"></script> -->
 
     <script>
