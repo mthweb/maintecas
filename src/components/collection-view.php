@@ -37,7 +37,7 @@ $objServ   = new serviceControleur();
 <!-- /navbar retour -->
 
 <!-- partial:index.partial.html -->
-<div class="col-12 col-md-12 nav-scroller bg-body pt-2 pb-2 mb-4">
+<div class="col-12 col-md-12 bg-body pt-2 pb-2 mb-4">
     <!-- slider service -->
     <div id="horizontal-nav" class="pb-4 container-fluid shadow-sm">
         <div class="btn-prev" role="button" tabindex="0">

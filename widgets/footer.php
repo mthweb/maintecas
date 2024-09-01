@@ -1,5 +1,5 @@
         <!-- footer -->
-        <footer class="bg-dark mx-auto text-white pt-5 pb-3">
+        <footer class="bg-black mx-auto text-white pt-5 pb-3 small">
             <!-- container -->
             <div class="container pt-3">
                 <!-- row -->
@@ -159,7 +159,7 @@
                 <!-- /row -->
 
                 <!-- social section -->
-                <div class="text-center mb-5">
+                <div class="text-center text-md-start mb-5">
                     <a href="" class="btn text-white text-decoration-none me-3">
                         <i class="fa fa-facebook"></i>
                     </a>
@@ -183,16 +183,16 @@
                 <!-- /social section -->
 
                 <!-- plateforme -->
-                <div class="mb-3 text-center">
+                <div class="mb-5 text-center text-md-start">
                     <!-- playstore link -->
                     <a href="" class="text-decoration-none">
-                        <img src="assets/playstore.png" width="150"  alt="">
+                        <img src="assets/playstore.png" width="110"  alt="">
                     </a>
                     <!-- /playstore link -->
 
                     <!-- appstore link -->
                     <a href="" class="text-decoration-none">
-                        <img src="assets/appstore.png" width="150"  alt="">
+                        <img src="assets/appstore.png" width="110"  alt="">
                     </a>
                     <!-- /appstore link -->
                 </div>
