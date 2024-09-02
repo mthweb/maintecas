@@ -61,18 +61,17 @@
 
 
     <!-- référencement -->
-    <!-- <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
-
+    <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"> 
     <meta property='og:locale' content="fr_FR, en_EN">
 
-    <meta property="og:description"   content="shortano.com est le site web officiel de l'auteur joe shortano, ce site vous offre les différents livres de shortano, avec possibilité de passer commande des différents livres">
+    <meta property="og:description"   content="maintecas web, ce logiciel qui vous permet de vendre vos compétences et vos services">
     <meta http-equiv="X-UA-Compatible" content="IE=7">
-    <meta property="og:site_name" content="shortano">
-    <meta property="og:image" content="https://shortano.com/data/images/joelogo.png">
-    <meta property="og:image:secure_url" content="https://shortano.com/data/images/joelogo.png">
+    <meta property="og:site_name" content="maintecas">
+    <meta property="og:image" content="https://australdrc.com/maintecas/assets/images/logo_upscaled.png">
+    <meta property="og:image:secure_url" content="https://australdrc.com/maintecas/assets/images/logo_upscaled.png">
     <meta property="og:image:width" content="320">
     <meta property="og:image:height" content="320">
-    <meta property="og:image:type" content="image/png"> -->
+    <meta property="og:image:type" content="image/png"> 
 
     <style>
         @font-face {

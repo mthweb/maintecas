@@ -64,7 +64,7 @@
                     <!-- form lieu -->
                     <div class="input-group mb-3">
                         <!-- <span class="input-group-text fa fa-envelope pt-3 bg-white"></span> -->
-                        <input type="text" id="input-text" required class="form-control bg-light" name="input" placeholder="Saisissez votre besoin ou choisissez un technicien">
+                        <input type="text" id="input-text" required class="form-control bg-light pt-2 pb-2" name="input" placeholder="Saisissez votre besoin ou choisissez un technicien">
                         <button type="submit" name="request" class="input-group-text btn btn-light z-0 fa fa-send-o pt-1"></button>
                     </div>
                     <!-- form lieu -->
