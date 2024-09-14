@@ -18,7 +18,7 @@ if (!empty($action)) {
     include_once('../controllers/cnx.php');
 
     // import de la fonction de génération des otps
-    include_once('../function/otp.php');
+    include_once('../helpers/otp.php');
 
     // on instancie les classes
     $objUsa    = new usagerController();
@@ -32,7 +32,7 @@ if ($action == "inscription") {
     $nom    = htmlspecialchars($_POST['nom']);
     $teleph = htmlspecialchars($_POST['telephone']);
     $email  = htmlspecialchars($_POST['email']);
-    $otp    = htmlspecialchars($otp);
+    $otpKey = htmlspecialchars($otp);
     $token  = sha1(htmlspecialchars($otp));
 
     if ($prenom == NULL || $nom == NULL || $teleph == NULL || $email == NULL) {
@@ -46,7 +46,7 @@ if ($action == "inscription") {
     $objSetUsa->setnomusager($nom);
     $objSetUsa->settelephoneusager($teleph);
     $objSetUsa->setemailusager($email);
-    $objSetUsa->setOtp($otp);
+    $objSetUsa->setOtp('3467');
     $objSetUsa->setToken($token);
 
     $objUsa->creerUsager($objSetUsa);

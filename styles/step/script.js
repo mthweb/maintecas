@@ -7,7 +7,7 @@ function run(hideTab, showTab){
         // déclaration
         var currentTab = 0;
         x = $("#tab-"+hideTab);
-        y = $(x).find("input");
+        y = $(x).find(".input");
         
         for (i = 0; i < y.length; i++) {
             if (y[i].value == "") {

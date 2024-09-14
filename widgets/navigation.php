@@ -1,7 +1,7 @@
 
 <div class="pt-5 mb-0">
         <!-- partial:index.partial.html -->
-        <nav class="navbar navbar-dark fixed-top fw-bold" aria-label="First navbar example" style="background-color: rgba(0, 0, 0, 0.5);">
+        <nav class="navbar pb-3 navbar-dark fixed-top fw-bold" aria-label="First navbar example" style="background-color: rgba(0, 0, 0, 0.5);">
             
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">Maintecas</a>
@@ -39,12 +39,12 @@
                         <!-- vue -->
                         <div class="container-fluid bg-transparent pt-4 pb-5">
                             <nav class="">
-                                <div class="nav nav-tabs mb-3 border-bottom-0" id="nav-tab" role="tablist">
-                                    <button class="nav-link active border-start-0 border-top-0  rounded-0 bg-transparent text-uppercase" id="nav-particulier-tab" data-bs-toggle="tab" data-bs-target="#nav-particulier" type="button" role="tab" aria-controls="nav-particulier" aria-selected="true">
+                                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                                    <button class="nav-link text-white active bg-transparent text-uppercase" id="nav-particulier-tab" data-bs-toggle="tab" data-bs-target="#nav-particulier" type="button" role="tab" aria-controls="nav-particulier" aria-selected="true">
                                         Particuliers
                                     </button>
 
-                                    <button class="nav-link bg-transparent text-uppercase border-top-0 border-bottom-0 rounded-0" onclick="location.href='../../maintecas-BtoB jesus-christ/index.php'" id="nav-entreprise-tab" data-bs-toggle="tab" data-bs-target="#nav-entreprise" type="button" role="tab" aria-controls="nav-entreprise" aria-selected="false">
+                                    <button class="nav-link text-white bg-transparent text-uppercase border-top-0 border-bottom-0 rounded-0" onclick="location.href='../../maintecas-BtoB jesus-christ/index.php'" id="nav-entreprise-tab" data-bs-toggle="tab" data-bs-target="#nav-entreprise" type="button" role="tab" aria-controls="nav-entreprise" aria-selected="false">
                                         Entreprises
                                     </button>
                                 </div>

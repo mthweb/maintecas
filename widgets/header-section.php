@@ -33,7 +33,7 @@
             <div class=" mt-lg-5 fade-in text-start text-md-start">
                 <h5 class="h1 fw-bold mb-3 ">
                     Trouvez le meilleur technicien
-                    À proximité de chez vous
+                    à proximité de chez vous
                 </h5>
 
                 <!-- <p class="fw-light small">
@@ -61,13 +61,13 @@
                     </div>
                     <!-- form lieu -->
 
-                    <!-- form lieu -->
+                    <!-- form besoin -->
                     <div class="input-group mb-3">
                         <!-- <span class="input-group-text fa fa-envelope pt-3 bg-white"></span> -->
                         <input type="text" id="input-text" required class="form-control bg-light pt-2 pb-2" name="input" placeholder="Saisissez votre besoin ou choisissez un technicien">
                         <button type="submit" name="request" class="input-group-text btn btn-light z-0 fa fa-send-o pt-1"></button>
                     </div>
-                    <!-- form lieu -->
+                    <!-- form besoin -->
 
                     <div id="suggestions-services" class="suggestions-services container d-none text-dark mb-3"></div>
 
@@ -90,13 +90,31 @@
                        </div>    
                     </div>
 
+                    <?php
+                        if (isset($_SESSION['key_compte']) && !empty($_SESSION['key_compte'])) {
+                    ?>
                     <!-- button -->
                     <div class="mb-3 text-center">
-                        <a href="src/vue/collection.php" class="btn btn-light text-muted">
+                        <a href="src/vue/selection.php" class="btn btn-light text-muted">
                             Voir les techniciens
                         </a>
                     </div>
                     <!-- /button -->
+
+                    <?php
+                        }else{
+                    ?>
+                    <!-- button -->
+                    <div class="mb-3 text-center">
+                        <a href="src/vue/selection.php" class="btn btn-light text-muted disabled">
+                            Voir les techniciens
+                        </a>
+                    </div>
+                    <!-- /button -->
+
+                    <?php
+                        }
+                    ?>
                 </form>
             </div>
             <!-- /formulaire -->

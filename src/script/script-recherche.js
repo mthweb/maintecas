@@ -1,5 +1,27 @@
 
 //================== formulation des requêtes ajax pour afficher des valeurs par défaut =======================//
+// On fait le load des données pour récupérer les données des techniciens
+function load_data_prestataire_all(page) {
+    $.ajax({
+        type: "POST",
+        url: "../traitement/mt-recherche.php",
+        data: { action: 'rechercheProfileAll', page: page },
+        success: function(data) {
+            $('#dynamic_content_suggession').html(data);
+            console.log(data.message);
+        }
+    });
+}
+
+//on affiche le tableau
+load_data_prestataire_all(1);
+
+//Ce code gère la pagination
+$(document).on('click', '.page-link', function() {
+    var page = $(this).data('page_number');
+    load_data_prestataire_all(page);
+});
+
 
 // On fait le load des données pour récupérer les données des techniciens par ville
 function load_data_ville(page) {
@@ -382,4 +404,42 @@ $(document).on('submit','#trouveTechnicienForm', function (e) {
     // alert('ok')
     // $('.message-recherche').removeClass('d-none')
     // $('.message-recherche').html(res.message).fadeIn().delay(3000).fadeOut();
+});
+
+
+$(document).ready(function() {
+    $('.profile_search').keyup(function() {
+        var input = $(this).val();
+        // alert(input)
+        if (input != '') {
+            $.ajax({
+                type: "POST",
+                url: "../traitement/mt-recherche.php",
+                data: { input: input, action:'rechercheParSuggestion' },
+                success: function(response) {
+                    $('#dynamic_content_suggession').html(response);                    
+                }
+            });
+        } else {
+            //on affiche le tableau
+            load_data_prestataire_all(1);      
+        }
+    });
+});
+
+
+// =========================== FILTRE DE RECHERCHE ET DES DONNEES ===============================================
+$(document).on('submit','#categorieFiltre', function () {
+    alert('ok')
+    // $.ajax({
+    //     url: '../traitement/mt-recherche.php',
+    //     type: 'POST',
+    //     data: { commune: commune, action:"communeGet" },
+    //     success: function(response) {
+    //         $('#result_commune').html(response);
+    //     },
+    //     error: function() {
+    //         $('#result_commune').html('Une erreur s\'est produite.');
+    //     }
+    // });
 });

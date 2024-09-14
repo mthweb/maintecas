@@ -1,146 +1,71 @@
-<style>
-     .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            padding: 30px;
-        }
+<div class="container d-flex  justify-content-center align-items-center vh-100">
+    
+    <div class="card p-4 bg-transparent text-white border-0" style="max-width: 400px; width: 100%;">
+        <!-- <div class="text-center mb-4">
+            <img src="https://www.codeur.com/assets/images/logos/codeur.svg" alt="Codeur.com" class="logo mb-2" style="width: 100px;">
+            <p class="text-muted">by Freeland</p>
+        </div> -->
 
-        .login-container {
-            background-color: #1a1a1a;
-            padding: 30px;
-            border-radius: 5px;
-            max-width: 400px;
-            width: 100%;
-            margin-right: 20px;
-        }
+        <h3 class="text-start fw-bold mb-5">Se connecter avec</h3>
+        
+        <div class="d-flex justify-content-around mb-3">
+            <a href="#" class="btn btn-outline-light shadow-sm border-0">
+                <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" style="width: 24px;">
+            </a>
+                
+            <a href="#" class="btn btn-outline-light shadow-sm border-0">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 24px;">
+            </a>
+                
+            <a href="#" class="btn btn-outline-light shadow-sm border-0">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width: 24px;">
+            </a>
+               
+        </div>
+           
+        <div class="container text-center my-4">
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
 
-        .login-container h3 {
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
+                <div class="col-auto">
+                    <strong>ou</strong>
+                </div>
 
-        .form-group label {
-            font-weight: normal;
-        }
+                <div class="col">
+                    <hr>
+                </div>
+            </div>    
+        </div>
 
-        .form-control {
-            background-color: #000;
-            border: 1px solid #444;
-            color: #fff;
-        }
-
-        .form-control::placeholder {
-            color: #aaa;
-        }
-
-        .btn-primary {
-            background-color: #fff;
-            color: #000;
-            border: none;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .form-text.text-danger {
-            color: #ff4c4c;
-        }
-
-        .link {
-            color: #fff;
-            text-decoration: underline;
-            font-size: 0.9rem;
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .sidebar {
-            max-width: 300px;
-            width: 100%;
-            padding-left: 20px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar ul li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        .captcha-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-                padding: 20px;
-            }
-            .login-container, .sidebar {
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
-        }
-
-</style>
-
-<div class="container mt-5">
-        <div class="row">
-            <!-- Login Form -->
-            <div class="col-md-6">
-                <div class="login-container">
-                    <h3>SE CONNECTER</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" placeholder="E-mail">
-                            <small class="form-text text-danger">Champ requis</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Mot de passe</label>
-                            <input type="password" class="form-control" id="password" placeholder="Mot de passe">
-                        </div>
-                        <div class="form-group">
-                            <a href="#" class="link">Mot de passe oublié</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Se Connecter</button>
-                    </form>
+        <form method="post" action="src/traitement/mt-connexion.php" id="">
+            <div class="mb-3">
+                <label for="username" class="form-label small">Adresse email ou téléphone</label>
+                <input type="text" name="username" class="form-control bg-transparent border-white border-2 input-custo text-white" id="username" placeholder="Adresse email ou pseudo">
+            </div>
+                
+            <div class="mb-3 d-none">
+                <label for="password" class="form-label small">Mot de passe</label>
+                <input type="password" class="form-control bg-transparent border-white border-2 input-custo text-white" id="password" placeholder="Mot de passe">
+                <div class="text-end">
+                    <a href="#" class="text-white small">Mot de passe oublié ?</a>
                 </div>
             </div>
-            <!-- Sidebar -->
-            <div class="col-md-6 sidebar">
-                <ul class="list-unstyled">
-                    <li><a href="#">Activez votre Starlink</a></li>
-                    <li><a href="#">Commander un Starlink</a></li>
-                    <li><a href="#">Consultez notre centre d'assistance</a></li>
-                    <li><a href="#">Consultez nos customer stories</a></li>
-                </ul>
+                
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="remember">
+                <label class="form-check-label small" for="remember">Se souvenir de moi</label>
             </div>
+                
+            <!-- contraine -->
+            <input type="hidden" name="action" value="connexion">
+
+            <button type="submit" class="btn btn-primary rounded-5 pt-2 pb-2">Se connecter</button>
+        </form>
+            
+        <div class="text-center mt-3">
+            <a href="#" class="text-white small">Pas encore inscrit sur maintecas.com ? S'inscrire</a>
         </div>
     </div>
+</div>

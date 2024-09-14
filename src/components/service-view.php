@@ -6,20 +6,8 @@
 
 ?>
 <!-- navbar retour-->
-<div class="d-flex pb-3 mb-1 bg-dark shadow-sm">
-    <a href="./collection.php" class="btn text-white border-0 mt-3 me-3">
-        <i class="fa fa-chevron-left me-2"></i>
-        <!-- <img src="../assets/arrow.png" width="30" alt=""> -->
-        <span class="fw-bold"><?= $info ?></span>
-    </a>
-
-    <!-- label -->
-    <div class="text-center pt-4"></div>
-    <!-- /label -->
-
-    <!-- /label -->
-    <div class=""></div>
-    <!-- /label -->
+<div class="pt-3 pb-3 mb-1 bg-primary text-white shadow-sm">
+    <span class="container display-6">Prestataire <?= $info ?></span>
 </div>
 <!-- /navbar retour -->
 
@@ -29,4 +17,4 @@
     <div id="result_profiles_services"></div>
     <!-- /load data -->
 </div>
-<!-- /container-fluid -->
+<!-- /container-fluid --> 

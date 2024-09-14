@@ -19,391 +19,159 @@
 
 <!-- result -->
 <div class="bg-light pt-0 pb-5">
-    <!-- navigation -->
-    <nav class="container-fluid alert-dark">
-        <div class="nav nav-tabs active bg-transparent nav-underline mb-3" id="nav-tab" role="tablist">
-            <div class="nav-scroller bg-transparent">
-                <nav class="nav nav-underline bg-transparent pt-3" aria-label="Secondary navigation">
-                        
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark active" aria-current="page" id="nav-tout-tab" data-bs-toggle="tab" data-bs-target="#nav-tout" type="button" role="tab" aria-controls="nav-tout" aria-selected="true">
-                        Technicien
-                    </button>
+     <!-- slide -->
+     <div class="container swiper">
 
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark" id="nav-ville-tab" data-bs-toggle="tab" data-bs-target="#nav-ville" type="button" role="tab" aria-controls="nav-ville" aria-selected="false">
-                        <i class="fa fa-globe"></i> Zone intervention
-                    </button>
+        <!-- filtre -->
+        <div class="container mt-3 pt-5 border-bottom mb-3 d-flex justify-content-between">
+            <h5 class="fw-bold h3"><span class="text-uppercase">à</span> proximité</h5>
 
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark" id="nav-categorie-tab" data-bs-toggle="tab" data-bs-target="#nav-categorie" type="button" role="tab" aria-controls="nav-categorie" aria-selected="false">
-                        Catégorie
-                    </button>
+            <div>
+                <a href="" class="btn btn-dark rounded-circle"><i class="fa fa-flash p-1 small"></i></a>
+                <a href="" class="btn btn-dark rounded-circle"><i class="fa fa-search small"></i></a>
 
-                    <!-- <button class="nav-link btn-dark rounded-5 p-2 bg-dark" id="nav-commune-tab" data-bs-toggle="tab" data-bs-target="#nav-commune" type="button" role="tab" aria-controls="nav-commune" aria-selected="false">
-                        Commune
-                    </button> -->
-
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark" id="nav-disponibilite-tab" data-bs-toggle="tab" data-bs-target="#nav-disponibilite" type="button" role="tab" aria-controls="nav-disponibilite" aria-selected="false">
-                        Disponibilité
-                    </button>
-                        
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark" href="#" id="nav-note-tab" data-bs-toggle="tab" data-bs-target="#nav-note" type="button" role="tab" aria-controls="nav-note" aria-selected="false">
-                        <i class="fa fa-star"></i> Note 
-                    </button>
-
-                                        
-                    <!-- <button class="nav-link btn-dark rounded-5 p-2 bg-dark" href="#">
-                        Link
-                    </button>
-                       
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark" href="#">
-                        Link
-                    </button>
-                        
-                    <button class="nav-link btn-dark rounded-5 p-2 bg-dark" href="#">
-                        Link
-                    </button> -->
-                </nav>
+                <button id="filterBtn" type="button" class="btn btn-light filter-btn rounded-circle" data-bs-toggle="modal" data-bs-target="#modalBottom">
+                    <img src="../../assets/icones/parametre.png" alt="" width="15" srcset="">
+                </button>
+            
             </div>
         </div>
-    </nav>
-    <!-- navigation -->
-     
-    <!-- panel section -->
-    <div class="tab-content" id="nav-tabContent">
-        <!-- technicien -->
-        <div class="tab-pane fade show active pt-0 pb-0" id="nav-tout" role="tabpanel" aria-labelledby="nav-tout-tab">
-            <!-- slide -->
-            <div class="container swiper">
+        <!-- /filtre -->
                     
-                <div class="mt-3 pt-3 mb-5 text-center">
-                    <h5 class="fw-bold h3 mb-3">Choisissez votre technicien</h5>
-                </div>
-
-                <div class="slide-content">
-                    <div class="card-wrapper swiper-wrapper">
-                            
-                            <?php
-                                // Déclaration des variables pour limite l'affichage des informations
-                                // ces variables permettent la gestion de l'affichage des informations
-                                $start = '0';
-                                $limite = '5';
-
-                                // D'ici nous manipulons les méthodes de la classe effectuer
-                                $stmt_res_tech = $objRend->AfficherServiceRenduTousParZone($getKey,$address,$start, $limite);
-
-
-                                // Nous posons une contrainte pour afficher les données retrouvées
-                                // voici l'alternative s'il y a des entreprises concernées par le service 
-                                // on les affichent
-                                if ($stmt_res_tech->rowCount() > 0) {
-                                    ?>
-                                    
-
+                    <div class="mt-3 pt-3 mb-0 text-center">
+                        <h5 class="fw-bold h3 mb-3">Tous les prestataires</h5>
+                    </div>
+    
+                    <div class="slide-content">
+                        <div class="row">
+                                
                                 <?php
-                                    // Avec la boucle while, nous récupérons les données qui sont concernées
-                                    // par cette recherche
-                                    while ($fetch_res_tech = $stmt_res_tech->fetch()) {
-                                        $id_prestataire = $fetch_res_tech['idprestataire'];
-                                        $nom_prestataire= $fetch_res_tech['nomprestataire'];
-                                        $service_rendu  = $fetch_res_tech['libserv'];
-                                        $type_compte    = $fetch_res_tech['libtypecompte'];  
-                                        $presentation   = $fetch_res_tech['presentation'];
+                                    // Déclaration des variables pour limite l'affichage des informations
+                                    // ces variables permettent la gestion de l'affichage des informations
+                                    $start = '0';
+                                    $limite = '5';
+    
+                                    // D'ici nous manipulons les méthodes de la classe effectuer
+                                    $stmt_res_tech = $objRend->AfficherServiceRenduTousParZone($getKey,$address,$start, $limite);
+    
+    
+                                    // Nous posons une contrainte pour afficher les données retrouvées
+                                    // voici l'alternative s'il y a des entreprises concernées par le service 
+                                    // on les affichent
+                                    if ($stmt_res_tech->rowCount() > 0) {
+                                        ?>
                                         
-                            ?>
-                            <!-- card 1 -->
-                            <div class="card bg-light swiper-slide border-0">
-                                <!-- card -->
-                                <div class="card col-8 mx-auto text-center justify-content-center">
-                                    <!-- card body -->
-                                    <div class="card-body text-center">
-                                        <!-- avatar -->
-                                        <div class="mb-5">
-                                            <img src="../../assets/index.png" class="rounded-circle shadow-sm border-primary" width="70" height="70" alt="">
-                                        </div>
-                                        <!-- /avatar -->
-                                                
-                                        <!-- user name -->
-                                        <div class="mb-3">
-                                            <h5 class="fw-bold"><?=$nom_prestataire?></h5>
-                                            <span class="d-block"><?=$service_rendu?></span>
-                                            <span class="d-block small text-muted"><?=$type_compte?></span>
-                                        </div>
-                                        <!-- /user name -->
-
-                                        <!-- presentation -->
-                                        <div class="mb-3">
-                                            <?=$presentation?>
-                                        </div>
-                                        <!-- /presentation -->
-
-                                        <!-- état -->
-                                        <div class="mb-3">
-                                           
-                                        </div>
-                                        <!-- /état -->
-
-                                        <!-- button -->
-                                        <div class="mt-3 mb-3">
-                                            <a href="./technicien-profile.php?id=<?=$id_prestataire?>&info=<?=sha1($service_rendu)?>" class="btn btn-primary rounded-5">
-                                                Contacter
-                                            </a>
-                                        </div>
-                                        <!-- /button -->
-
-                                    </div>
-                                    <!-- /card body -->
-                                </div>
-                                <!-- /card -->
-
-                                <!-- autres info -->
-                                <div class="mb-3 text-center">
+    
                                     <?php
-                                        for ($i=0; $i < 5 ; $i++) { 
-                                            echo '<i class="fa fa-star text-warning"></i>';
-                                        }
-                                    ?>
-                                    (1)
-                                </div>
-                                <!-- /autres info -->
-
-                                <!-- Lire les avis clients -->
-                                <div class="mb-5 text-center">
-                                    <a href="">Lire les avis clients</a>
-                                </div>
-                                <!-- /Lire les avis clients -->
-                            </div>
-                            <!-- /card 1 -->
-
-                            <?php
-                                    }
-                                }else{
-                                    ?>
-                                    <div class="text-center mx-auto container pt-5 pb-5">
-                                        Aucune information pour cette requête
-                                        <i class="fa fa-exclamation-circle d-block fa-2x mt-3"></i>
-
-                                        <div class="d-block mt-5">
-                                            <a href="./result.php" class="d-block">Découvrez d'autres techniciens</a>
-                                        </div>
-
-                                    </div>                    
-                                    
-                                    
-
-                                    
-                            <?php
-                                } 
-                            ?>        
-
-                    </div>
-                </div>
-
-                <div class="swiper-pagination"></div>
-                            
-                <!-- <div class="swiper-button-prev swiper-navBtn"></div>
-                <div class="swiper-button-Suivant swiper-navBtn"></div> -->
-
-            </div>
-            <!-- /slide -->
-        </div>
-        <!-- /technicien -->
-
-        <!-- villes -->
-        <div class="tab-pane fade pt-0 pb-3" id="nav-ville" role="tabpanel" aria-labelledby="nav-ville-tab">
-                
-            <div class="d-flex justify-content-between container align-items-center mb-3">
-                <div class="fw-bold">
-                    <i class="fa fa-filter"></i> Afficher par
-                </div>
-
-                <div class="col-6 col-md-2 mb-0">
-                    <select name="" class="form-select rounded-5" id="ville">
-                        <option value="">-- Sélectionner --</option>
-                        <option value="Kinshasa">Kinshasa</option>
-                        <option value="Lubumbashi">Lubumbashi</option>
-                        <option value="Kisangani">Kisangani</option>
-                        <option value="Mbuji-Mayi">Mbuji-Mayi</option>
-                        <option value="Kananga">Kananga</option>
-                        <option value="Goma">Goma</option>
-                        <option value="Bukavu">Bukavu</option>
-                        <option value="Kolwezi">Kolwezi</option>
-                        <option value="Tshopo">Tshopo</option>
-                        <option value="Haut-Uele">Haut-Uele</option>
-                        <option value="Ituri">Ituri</option>
-                        <option value="Tshopo">Tshopo</option>
-                        <option value="Haut-Lomami">Haut-Lomami</option>
-                        <option value="Tanganyika">Tanganyika</option>
-                        <option value="Haut-Katanga">Haut-Katanga</option>
-                        <option value="Kasaï">Kasaï</option>
-                        <option value="Kasaï-Central">Kasaï-Central</option>
-                        <option value="Kasaï-Oriental">Kasaï-Oriental</option>
-                        <option value="Sankuru">Sankuru</option>
-                        <option value="Sud-Kivu">Sud-Kivu</option>
-                        <option value="Nord-Kivu">Nord-Kivu</option>
-                        <option value="Maniema">Maniema</option>
-                        <option value="Maï-Ndombe">Maï-Ndombe</option>
-                        <option value="Kwilu">Kwilu</option>
-                        <option value="Kwanga">Kwanga</option>
-                        <option value="Équateur">Équateur</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- load data ville -->
-            <div class="">
-                <div id="result_ville"></div>
-            </div>
-            <!-- /load ville -->
-        </div>            
-        <!-- /viles -->
-
-        <!-- commune -->
-        <div class="tab-pane fade pt-0 pb-3" id="nav-commune" role="tabpanel" aria-labelledby="nav-commune-tab">
-            <div class="d-flex justify-content-between container align-items-center mb-3">
-                <div class="fw-bold">
-                    <i class="fa fa-filter"></i> Afficher par
-                </div>
-
-                <div class="col-6 col-md-2 mb-0">
-                    <select id="commune" name="commune" class="form-select rounded-5">
-                        <!-- <option value="">-- Sélectionner --</option> -->
-                        <option value="Kinshasa">Kinshasa</option>
-                        <option value="Bandalungwa">Bandalungwa</option>
-                        <option value="Barumbu">Barumbu</option>
-                        <option value="Bumbu">Bumbu</option>
-                        <option value="Gombe">Gombe</option>
-                        <option value="Kasa-Vubu">Kasa-Vubu</option>
-                        <option value="Kintambo">Kintambo</option>
-                        <option value="Kinsuka">Kinsuka</option>
-                        <option value="Lemba">Lemba</option>
-                        <option value="Limete">Limete</option>
-                        <option value="Lingwala">Lingwala</option>
-                        <option value="Makala">Makala</option>
-                        <option value="Masina">Masina</option>
-                        <option value="Ngaliema">Ngaliema</option>
-                        <option value="Ngiri-Ngiri">Ngiri-Ngiri</option>
-                        <option value="Nsele">Nsele</option>
-                        <option value="Selembao">Selembao</option>
-                        <option value="Tshangu">Tshangu</option>
-                    </select>
-                </div>
-            </div>
-
+                                        // Avec la boucle while, nous récupérons les données qui sont concernées
+                                        // par cette recherche
+                                        while ($fetch_res_tech = $stmt_res_tech->fetch()) {
+                                            $id_prestataire    = $fetch_res_tech['idprestataire'];
+                                            $nom_prestataire   = $fetch_res_tech['nomprestataire'];
+                                            $description       = $fetch_res_tech['description'];
+                                            $service_rendu     = $fetch_res_tech['libserv'];
+                                            $type_compte       = $fetch_res_tech['libtypecompte'];  
+                                            $presentation      = $fetch_res_tech['presentation'];
+                                            $note              = $fetch_res_tech['note'];
                                             
-            <!-- load data commune -->
-            <div class="">
-                <div id="result_commune"></div>
-            </div>
-            <!-- /load commune -->
-        </div>            
-        <!-- /commune -->
-
-        <!-- disponibilité -->
-        <div class="tab-pane fade pt-1 pb-3" id="nav-disponibilite" role="tabpanel" aria-labelledby="nav-disponibilite-tab">
-                  
-            <div class="nav-scroller bg-transparent">
-                <div class="d-flex justify-content-between container align-items-center mb-3">
-                    <div class="fw-bold">
-                        <i class="fa fa-filter"></i> Afficher par
-                    </div>
-
-                    <div class="col-6 col-md-2 mb-0">
-                        <select id="dispo" name="dispo" class="form-select rounded-5">
-                            <!-- <option value="">-- Sélectionner --</option> -->
-                            <?php
-                                // Nous récupérons les données des disponibilités pour interroger la base 
-                                // de données afin de nous produire les données demandées
-                                $stmt_dispo = $objDisp->AfficherDispoTous();
-                                while ($donnees_dispo = $stmt_dispo->fetch()) {     
-                                    $iddispo  = $donnees_dispo['iddispo'];                    
-                                    $libdispo = $donnees_dispo['libdispo'];                      
                                 ?>
-                                    <option value="<?= $iddispo?>"><?= $libdispo?></option>
-                            <?php
-                              }
-                            ?>
-                        </select>
+                                    <div class="col-md-4 mb-3 mx-auto">
+                                        <div class="card profile-card border-0">
+                                            <div class="card-body text-start">
+                                                <div class="">
+                                                    <div class="profile-img">
+                                                        <img src="../../assets/index.png" width="60" height="60" alt="Photo de profil" class="rounded-circle">
+                                                        <span class="badge bg-danger d-block w-75">
+                                                            PRO
+                                                            <i class="fa fa-plus-circle"></i>
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </span>
+                                                    </div>
+                                                
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="me-5">
+                                                            <h5 class="card-title fw-bold text-capitalize mt-3"><?= $nom_prestataire ?></h5>
+                                                            <p class="text-muted small"><?= $description ?></p>
+    
+                                                            <div class="d-flex mb-3 pb-0 border-bottom">
+                                                                <div class="online-status text-start">
+                                                                    <span class="status-dot"></span>
+                                                                    <span class="status-text">Disponible</span>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                        <div class="rating-container">
+                                                            <div class="main-circle">
+                                                                <span class="rating"><?= number_format($note,1) ?></span>
+                                                                <div class="star-circle">
+                                                                    <span class="star">★</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="text-start" style="overflow-y: scroll; height:9em;scrollbar-color:rgb(100,100,100) rgb(45,45,45); scrollbar-width: thin;">
+                                                    <div class="col d-flex align-items-start small">
+                                                        
+                                                        <span class="bg-light p-2 me-1 rounded-circle"><img src="../../assets/icones/map.png" width="20" alt=""></span> 
+                                                        <div>
+                                                            <p><?= $description ?></p>
+                                                        </div>
+                                                    </div>
+    
+                                                    <p class="small">
+                                                        <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/badge.png" width="20" alt=""></span> 
+                                                        <i class="fas fa-dollar-sign"></i> Prix discutable
+                                                    </p>
+                                                    
+                                                    <p class="small">
+                                                        <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/trophy.png" width="20" alt=""></span> 
+                                                        8 projets réalisés</p>
+                                                </div>
+                                                
+                                                <div class="text-center">
+                                                    <a href="./profile.php?id=<?= $id_prestataire ?>&text=<?= sha1($id_prestataire) ?>&=info=<?= $nom_prestataire ?>" class="btn btn-dark mt-3">Voir le profil complet</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                        
+                                        <hr class="w-100 d-md-none">
+                                    </div>
+    
+                                <?php
+                                        }
+                                    }else{
+                                        ?>
+                                        <div class="text-center mx-auto container pt-5 pb-5">
+                                            Aucune information pour cette requête
+                                            <i class="fa fa-exclamation-circle d-block fa-2x mt-3"></i>
+    
+                                            <div class="d-block mt-5">
+                                                <a href="./result.php" class="d-block">Découvrez d'autres techniciens</a>
+                                            </div>
+    
+                                        </div>                    
+                                        
+                                        
+    
+                                        
+                                <?php
+                                    } 
+                                ?>        
+    
+                        </div>
                     </div>
+    
+                    <div class="swiper-pagination"></div>
+                                
+                    <!-- <div class="swiper-button-prev swiper-navBtn"></div>
+                    <div class="swiper-button-Suivant swiper-navBtn"></div> -->
+    
                 </div>
-            </div>              
-          
-            <!-- load data entreprise -->
-            <div class="">
-                <div id="result_dispo"></div>
-            </div>
-            <!-- /load data entreprise -->
-        </div>            
-        <!-- /disponibilité -->
-
-        <!-- note -->
-        <div class="tab-pane fade pt-0 pb-3" id="nav-note" role="tabpanel" aria-labelledby="nav-note-tab">
-                
-            <div class="nav-scroller bg-transparent">
-                <div class="d-flex justify-content-between container align-items-center mb-3">
-                    <div class="fw-bold">
-                        <i class="fa fa-filter"></i> Afficher par
-                    </div>
-
-                    <div class="col-6 col-md-2 mb-0">
-                        <select id="note" name="note" class="form-select rounded-5">
-                            <!-- <option value="">-- Sélectionner --</option> -->
-                            <option value="10">5 étoiles</option>
-                            <option value="8">4 étoiles</option>
-                            <option value="6">3 étoiles</option>
-                            <option value="4">2 étoiles</option>
-                            <option value="2">1 étoiles</option>
-                        </select>
-                    </div>
-                </div>
-            </div>              
-
-
-            <!-- load data entreprise -->
-            <div class="">
-                <div id="result_note"></div>
-            </div>
-            <!-- /load data entreprise -->
-        </div>            
-        <!-- /note -->
-
-        <!-- catégorie -->
-        <div class="tab-pane fade pt-0 pb-3" id="nav-categorie" role="tabpanel" aria-labelledby="nav-categorie-tab">
-                
-            <div class="nav-scroller bg-transparent">
-                <div class="d-flex justify-content-between container align-items-center mb-3">
-                    <div class="fw-bold">
-                        <i class="fa fa-filter"></i> Afficher par
-                    </div>
-
-                    <div class="col-6 col-md-2 mb-0">
-                        <select id="categorie" name="categorie_" class="form-select rounded-5">
-                            <!-- <option value="">-- Sélectionner --</option> -->
-                            <?php
-                                // Nous récupérons les données des disponibilités pour interroger la base 
-                                // de données afin de nous produire les données demandées
-                                $stmt_cat = $objCat->selectionneCategorieTous();
-                                while ($donnees_cat = $stmt_cat->fetch()) {     
-                                    $codcat = $donnees_cat['codcat'];                    
-                                    $libcat = $donnees_cat['libcat'];                      
-                                ?>
-                                    <option value="<?= $libcat?>"><?= $libcat?></option>
-                            <?php
-                                }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-            </div>              
-
-            <!-- load data entreprise -->
-            <div class="">
-                <div id="result_categorie"></div>
-            </div>
-            <!-- /load data entreprise -->
-        </div>            
-        <!-- /catégorie -->
-        </div>
-        <!-- /partial -->
-    </div>
+                <!-- /slide -->
 </div>
 <!-- /result -->
 
@@ -466,6 +234,25 @@
 <!-- /recherches similaires -->
 
 
+<!-- content -->
+<main class="bg-light pt-5 pb-5 mb-5">
+    <!-- titre -->
+    <div class="mt-5 mb-5">
+        <h5 class="fw-bold h2 text-center">
+            Plus de 100 000 Techniciens disponibles pour réaliser vos projets
+        </h5>
+    </div>
+
+    <!-- button -->
+    <div class="text-center">
+        <a href="#" class="btn btn-dark">
+            Commander un service
+        </a>
+    </div>
+</main>
+<!-- /content -->
+
+
 <!-- suggession -->
 <div class="container-fluid">
     <!-- titre -->
@@ -512,3 +299,5 @@
     </div>
 </div>
 <!-- /suggession -->
+
+

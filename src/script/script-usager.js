@@ -3,6 +3,7 @@ $('.message-usager').hide();
 
 $(document).on('submit', '#inscriptionUsager', function (event) {
     event.preventDefault();
+    alert('ok ok')
     // var nom = $('#client_nom').val();
 
     console.log('ok');

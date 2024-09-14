@@ -438,22 +438,99 @@ if ($action == "getProfileService") {
 
 
     $output = '
-        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
-            <div class="list-group list-group-flush border-bottom scrollarea">
-    
+        <div class="row pt-5">    
     ';
     if ($total_data > 0) {
         foreach ($res as $row) {
             $output .= '
-                <a  href="./details-collection.php?id='.$row['idprestataire'].'" class="modale-open-profile list-group-item list-group-item-action py-3 lh-tight">
-                    <div class="d-flex w-100 align-items-center ">
-                        <img src="../../assets/index.png" class="rounded-circle me-2" width="50" height="50" class="me-2" alt="">
-                        <span class="mb-1">
-                            <strong>'.$row['nomprestataire'].'</strong>
-                            <div class="col-10 mb-1 small">'.$row['nomprestataire'].'</div>
-                        </span>
+                <div class="col-md-4 mx-auto mb-3">
+                    <div class="card profile-card  border-0">
+                        <div class="card-body text-start">
+                           <div class="">
+                                <div class="profile-img">
+                                    <img src="../../assets/index.png" width="60" height="60" alt="Photo de profil" class="rounded-circle">
+                                    <span class="badge bg-danger d-block w-75">
+                                        PRO
+                                        <i class="fa fa-plus-circle"></i>
+                                        <i class="fa fa-plus-circle"></i>
+                                    </span>
+                                </div>
+                            
+                                <div class="d-flex justify-content-between">
+                                    <div class="me-5">
+                                        <h5 class="card-title fw-bold text-capitalize mt-3">'. $row['nomprestataire'] .'</h5>
+                                        <p class="text-muted small">'. $row['description'] .'</p>
+
+                                        <div class="d-flex mb-0 pb-0 border-bottom">
+                                            <div class="online-status text-start">
+                                                <span class="status-dot"></span>
+                                                <span class="status-text">Disponible</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="rating-container">
+                                        <div class="main-circle">
+                                            <span class="rating">'. number_format($row['note'],1) .'</span>
+                                            <div class="star-circle">
+                                                <span class="star">★</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+
+
+
+                            <p class="card-text small" style="text-align: justify;">
+                               ';
+                               
+                               $presentation = $row['presentation']; 
+
+                                // Définir la longueur minimum de caractères à afficher
+                                $longueur_min = 50;
+
+                                // Si le texte est plus long que 50 caractères, le tronquer
+                                if (strlen($presentation) > $longueur_min) {
+                                    // Afficher les 50 premiers caractères suivis de "..."
+                                    $affichage = substr($presentation, 0, $longueur_min) . '...';
+                                    // Ajouter un bouton ou lien "Voir plus" pour afficher tout le texte
+                                    $output .= '<p>' . $affichage . ' <a href="#" class="voir-plus" data-presentation="' . $presentation . '">Voir plus</a></p>';
+                                } else {
+                                    // Si le texte est déjà plus court que 50 caractères, l'afficher normalement
+                                    $output .=  '<p>' . $presentation . '</p>';
+                                }
+                               
+                               $output .='
+                            </p>
+                            <div class="text-start" style="overflow-y: scroll; height:9em;scrollbar-color:rgb(100,100,100) rgb(45,45,45); scrollbar-width: thin;">
+                                <div class="col d-flex align-items-start small">
+                                    
+                                    <span class="bg-light p-2 me-1 rounded-circle"><img src="../../assets/icones/map.png" width="20" alt=""></span> 
+                                    <div>
+                                        <p>'. $row['zone_intervention'] .'</p>
+                                    </div>
+                                </div>
+
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/badge.png" width="20" alt=""></span> 
+                                    <i class="fas fa-dollar-sign"></i> Prix discutable
+                                </p>
+                                
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/trophy.png" width="20" alt=""></span> 
+                                    8 projets réalisés</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <a href="../vue/profile.php?id='. $row['idprestataire'] .'&text='. sha1($row['nomprestataire']) .'&=info='. $row['nomprestataire'] .'" class="btn btn-dark mt-3">Voir le profil complet</a>
+                            </div>
+                        </div>
                     </div>
-                </a>
+
+                    <hr class="w-100 d-md-none">
+                </div>
             ';
         }
         // echo $output;
@@ -474,7 +551,6 @@ if ($action == "getProfileService") {
     }
 
     $output .='
-        </div>
     </div>
     ';
 

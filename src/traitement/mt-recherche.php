@@ -1076,3 +1076,484 @@ if ($action == "getRowPrest") {
     echo $output;
 }
 
+
+// Nous implémentons un script qui permettra de récupérer les informations lorsqu'on saisit 
+// l'un des mots clés qui est stocké dans la table keyword, cette logique permettra la récupération
+// par mot clé des profils utilisateurs 
+if ($action == 'rechercheParSuggestion') {
+    # code...
+    $_POST['page'] ?? 1;
+    $limite = 5;
+    $page = 1;
+
+    if ($_POST['page'] ?? 1 > 1) {
+        $start = (($_POST['page'] - 1) * $limite);
+        $page  = $_POST['page'];
+    } else {
+        $start = 0;
+    }
+
+    // récupération de la valeur saisie dans la variable input
+    $input = htmlspecialchars($_POST['input']);
+
+    //On selectione toutes les lignes
+    $stmt = $objRend->AfficherProfileParDomaine($input, $start, $limite);
+    $res  = $stmt->fetchAll();
+
+    //On compte le nombre de ligne
+    $data_count = $objRend->AfficherProfileParDomaine($input, $start, $limite);
+    $total_data = $data_count->fetchColumn();
+    
+    $output = '<div class="row">';
+    if ($total_data > 0) {
+        foreach ($res as $row) {
+            $output .= '
+                <div class="col-10 col-md-6 mb-3">
+                    <div class="card profile-card border-0">
+                        <div class="card-body text-start">
+                            <div class="profile-img">
+                                <img src="../../assets/index.png" width="80" alt="Photo de profil" class="rounded-circle">
+                                <span class="badge bg-danger d-block w-75">
+                                    PRO
+                                    <i class="fa fa-plus-circle"></i>
+                                    <i class="fa fa-plus-circle"></i>
+                                </span>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title fw-bold text-capitalize mt-3">'. $row['nomprestataire'] .'</h5>
+                                    <p class="text-muted small">'. $row['description'] .'</p>
+                                </div>
+
+                                <div class="rating-container">
+                                    <div class="main-circle">
+                                        <span class="rating">'. number_format($row['note'],1) .'</span>
+                                        <div class="star-circle">
+                                            <span class="star">★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="d-flex mb-3 pb-3 border-bottom">
+                                <div class="online-status text-start">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">Disponible</span>
+                                </div>
+                            
+                                
+                            </div>
+
+                            <p class="card-text small" style="text-align: justify;">
+                               '. $row['presentation'] .'
+                            </p>
+                            <div class="text-start" style="overflow-y: scroll; height:9em;scrollbar-color:rgb(100,100,100) rgb(45,45,45); scrollbar-width: thin;">
+                                <div class="col d-flex align-items-start small">
+                                    
+                                    <span class="bg-light p-2 me-1 rounded-circle"><img src="../../assets/icones/map.png" width="20" alt=""></span> 
+                                    <div>
+                                        <p>'. $row['zone_intervention'] .'</p>
+                                    </div>
+                                </div>
+
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/badge.png" width="20" alt=""></span> 
+                                    <i class="fas fa-dollar-sign"></i> Prix discutable
+                                </p>
+                                
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/trophy.png" width="20" alt=""></span> 
+                                    8 projets réalisés</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <a href="../vue/profile.php?id='. $row['idprestataire'] .'&text='. sha1($row['nomprestataire']) .'&=info='. $row['nomprestataire'] .'" class="btn btn-dark mt-3">Voir le profil complet</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="w-100 d-md-none">
+                </div>
+            ';
+        }
+        // echo $output;
+
+        $output.='
+        </div>
+        
+            <div class="mt-0 text-center mt-5">
+                <a href="" class="btn btn-light rounded-0 rounded-5 pt-3 pb-3">
+                    Afficher plus
+                </a>
+            </div>
+        ';
+    } else {
+        $output .= '
+            <div class="text-center container pt-5 pb-5 mb-5">
+                Aucune information pour cette requête
+            </div>
+        ';
+        // echo $output;
+    }
+
+    $output .= '';
+
+    echo $output;
+}
+
+// Nous récupérons des profiles par défaut
+if ($action == 'rechercheProfileAll') {
+    # code...
+    $_POST['page'] ?? 1;
+    $limite = 5;
+    $page = 1;
+
+    if ($_POST['page'] ?? 1 > 1) {
+        $start = (($_POST['page'] - 1) * $limite);
+        $page  = $_POST['page'];
+    } else {
+        $start = 0;
+    }
+
+    // récupération de la valeur saisie dans la variable input
+    // $input = htmlspecialchars($_POST['input']);
+
+    //On selectione toutes les lignes
+    $stmt = $objRend->AfficherRendre($start, $limite);
+    $res  = $stmt->fetchAll();
+
+    //On compte le nombre de ligne
+    $data_count = $objRend->AfficherRendre($start, $limite);
+    $total_data = $data_count->fetchColumn();
+    
+    $output = '<div class="row">';
+    if ($total_data > 0) {
+        foreach ($res as $row) {
+            $output .= '
+                <div class="col-10 col-md-6 mb-3">
+                    <div class="card profile-card '. ($row['etat'] == 0 ? 'blocked' : '') .'  border-0 ">
+                        <div class="card-body text-start">
+                           <div class="">
+                                <div class="profile-img">
+                                    <img src="../../assets/index.png" width="60" height="60" alt="Photo de profil" class="rounded-circle">
+                                    <span class="badge bg-danger d-block w-75">
+                                        PRO
+                                        <i class="fa fa-plus-circle"></i>
+                                        <i class="fa fa-plus-circle"></i>
+                                    </span>
+                                </div>
+                            
+                                <div class="d-flex justify-content-between">
+                                    <div class="me-5">
+                                        <h5 class="card-title fw-bold text-capitalize mt-3">'. $row['nomprestataire'] .'</h5>
+                                        <p class="text-muted small">'. $row['description'] .'</p>
+
+                                        <div class="d-flex mb-0 pb-0 border-bottom">
+                                            <div class="online-status text-start">
+                                                <span class="status-dot"></span>
+                                                <span class="status-text">Disponible</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="rating-container">
+                                        <div class="main-circle">
+                                            <span class="rating">'. number_format($row['note'],1) .'</span>
+                                            <div class="star-circle">
+                                                <span class="star">★</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+
+
+
+                            <p class="card-text small" style="text-align: justify;">
+                               ';
+                               
+                               $presentation = $row['presentation']; 
+
+                                // Définir la longueur minimum de caractères à afficher
+                                $longueur_min = 50;
+
+                                // Si le texte est plus long que 50 caractères, le tronquer
+                                if (strlen($presentation) > $longueur_min) {
+                                    // Afficher les 50 premiers caractères suivis de "..."
+                                    $affichage = substr($presentation, 0, $longueur_min) . '...';
+                                    // Ajouter un bouton ou lien "Voir plus" pour afficher tout le texte
+                                    $output .= '<p>' . $affichage . ' <a href="#" class="voir-plus" data-presentation="' . $presentation . '">Voir plus</a></p>';
+                                } else {
+                                    // Si le texte est déjà plus court que 50 caractères, l'afficher normalement
+                                    $output .=  '<p>' . $presentation . '</p>';
+                                }
+                               
+                               $output .='
+                            </p>
+                            <div class="text-start" style="overflow-y: scroll; height:9em;scrollbar-color:rgb(100,100,100) rgb(45,45,45); scrollbar-width: thin;">
+                                <div class="col d-flex align-items-start small">
+                                    
+                                    <span class="bg-light p-2 me-1 rounded-circle"><img src="../../assets/icones/map.png" width="20" alt=""></span> 
+                                    <div>
+                                        <p>'. $row['zone_intervention'] .'</p>
+                                    </div>
+                                </div>
+
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/badge.png" width="20" alt=""></span> 
+                                    <i class="fas fa-dollar-sign"></i> Prix discutable
+                                </p>
+                                
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/trophy.png" width="20" alt=""></span> 
+                                    8 projets réalisés</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <a href="../vue/profile.php?id='. $row['idprestataire'] .'&text='. sha1($row['nomprestataire']) .'&=info='. $row['nomprestataire'] .'" class="btn btn-dark mt-3">Voir le profil complet</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="w-100 d-md-none">
+                </div>
+            ';
+        }
+        // echo $output;
+
+        $output.='
+        </div>
+        
+        ';
+    } else {
+        $output .= '
+            <div class="text-center container pt-5 pb-5 mb-5">
+                Aucune information pour cette requête
+            </div>
+        ';
+        // echo $output;
+    }
+
+    $total_links = ceil($total_data / $limite);
+
+    $output .= '
+        </table>
+
+        <hr>
+        
+        <br>
+        <div class="text-center ">
+            <ul class="pagination justify-content-center">
+        ';
+
+    $previous_link = '';
+    $next_link = '';
+
+    // Bouton "Précédent"
+    $previous_id = $page - 1;
+    $previous_link = '
+        <li class="page-item' . ($page <= 1 ? ' disabled' : '') . '">
+            <a href="javascript:void(0)" data-page_number="' . $previous_id . '" class="page-link">
+                Previous
+            </a>
+        </li>';
+
+    // Bouton "Suivant"
+    $next_id = $page + 1;
+    $next_link = '
+        <li class="page-item' . ($page >= $total_links ? ' disabled' : '') . '">
+            <a href="javascript:void(0)" data-page_number="' . $next_id . '" class="page-link">Next</a>
+        </li>
+    ';
+
+    $output .= $previous_link . $next_link;
+
+    $output .= '
+            </ul>
+        </div>   
+        ';
+    echo $output;
+
+    // echo $output;
+}
+
+
+// ============================================= FILTRE DE DONNEES ===============================================
+if ($action == 'filtreCategorie') {
+    # code...
+    $_POST['page'] ?? 1;
+    $limite = 5;
+    $page = 1;
+
+    if ($_POST['page'] ?? 1 > 1) {
+        $start = (($_POST['page'] - 1) * $limite);
+        $page  = $_POST['page'];
+    } else {
+        $start = 0;
+    }
+
+    // récupération de la valeur saisie dans la variable input
+    $input = htmlspecialchars($_POST['input']);
+
+    //On selectione toutes les lignes
+    $stmt = $objRend->AfficherServiceRenduTousParZoneParCategorie( $_SESSION['input'], $_SESSION['address'], $input, $start, $limite);
+    $res  = $stmt->fetchAll();
+
+    //On compte le nombre de ligne
+    $data_count = $objRend->AfficherServiceRenduTousParZoneParCategorie( $_SESSION['input'], $_SESSION['address'], $input, $start, $limite);
+    $total_data = $data_count->fetchColumn();
+    
+    $output = '<div class="row">';
+    if ($total_data > 0) {
+        foreach ($res as $row) {
+            $output .= '
+                <div class="col-10 col-md-6 mb-3">
+                    <div class="card profile-card '. ($row['etat'] == 0 ? 'blocked' : '') .'  border-0 ">
+                        <div class="card-body text-start">
+                           <div class="">
+                                <div class="profile-img">
+                                    <img src="../../assets/index.png" width="60" height="60" alt="Photo de profil" class="rounded-circle">
+                                    <span class="badge bg-danger d-block w-75">
+                                        PRO
+                                        <i class="fa fa-plus-circle"></i>
+                                        <i class="fa fa-plus-circle"></i>
+                                    </span>
+                                </div>
+                            
+                                <div class="d-flex justify-content-between">
+                                    <div class="me-5">
+                                        <h5 class="card-title fw-bold text-capitalize mt-3">'. $row['nomprestataire'] .'</h5>
+                                        <p class="text-muted small">'. $row['description'] .'</p>
+
+                                        <div class="d-flex mb-0 pb-0 border-bottom">
+                                            <div class="online-status text-start">
+                                                <span class="status-dot"></span>
+                                                <span class="status-text">Disponible</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="rating-container">
+                                        <div class="main-circle">
+                                            <span class="rating">'. number_format($row['note'],1) .'</span>
+                                            <div class="star-circle">
+                                                <span class="star">★</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+
+
+
+                            <p class="card-text small" style="text-align: justify;">
+                               ';
+                               
+                               $presentation = $row['presentation']; 
+
+                                // Définir la longueur minimum de caractères à afficher
+                                $longueur_min = 50;
+
+                                // Si le texte est plus long que 50 caractères, le tronquer
+                                if (strlen($presentation) > $longueur_min) {
+                                    // Afficher les 50 premiers caractères suivis de "..."
+                                    $affichage = substr($presentation, 0, $longueur_min) . '...';
+                                    // Ajouter un bouton ou lien "Voir plus" pour afficher tout le texte
+                                    $output .= '<p>' . $affichage . ' <a href="#" class="voir-plus" data-presentation="' . $presentation . '">Voir plus</a></p>';
+                                } else {
+                                    // Si le texte est déjà plus court que 50 caractères, l'afficher normalement
+                                    $output .=  '<p>' . $presentation . '</p>';
+                                }
+                               
+                               $output .='
+                            </p>
+                            <div class="text-start" style="overflow-y: scroll; height:9em;scrollbar-color:rgb(100,100,100) rgb(45,45,45); scrollbar-width: thin;">
+                                <div class="col d-flex align-items-start small">
+                                    
+                                    <span class="bg-light p-2 me-1 rounded-circle"><img src="../../assets/icones/map.png" width="20" alt=""></span> 
+                                    <div>
+                                        <p>'. $row['zone_intervention'] .'</p>
+                                    </div>
+                                </div>
+
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/badge.png" width="20" alt=""></span> 
+                                    <i class="fas fa-dollar-sign"></i> Prix discutable
+                                </p>
+                                
+                                <p class="small">
+                                    <span class="bg-light p-2 rounded-circle"><img src="../../assets/icones/trophy.png" width="20" alt=""></span> 
+                                    8 projets réalisés</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <a href="../vue/profile.php?id='. $row['idprestataire'] .'&text='. sha1($row['nomprestataire']) .'&=info='. $row['nomprestataire'] .'" class="btn btn-dark mt-3">Voir le profil complet</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="w-100 d-md-none">
+                </div>
+            ';
+        }
+        // echo $output;
+
+        $output.='
+        </div>
+        
+        ';
+    } else {
+        $output .= '
+            <div class="text-center container pt-5 pb-5 mb-5">
+                Aucune information pour cette requête
+            </div>
+        ';
+        // echo $output;
+    }
+
+    $total_links = ceil($total_data / $limite);
+
+    $output .= '
+        </table>
+
+        <hr>
+        
+        <br>
+        <div class="text-center ">
+            <ul class="pagination justify-content-center">
+        ';
+
+    $previous_link = '';
+    $next_link = '';
+
+    // Bouton "Précédent"
+    $previous_id = $page - 1;
+    $previous_link = '
+        <li class="page-item' . ($page <= 1 ? ' disabled' : '') . '">
+            <a href="javascript:void(0)" data-page_number="' . $previous_id . '" class="page-link">
+                Previous
+            </a>
+        </li>';
+
+    // Bouton "Suivant"
+    $next_id = $page + 1;
+    $next_link = '
+        <li class="page-item' . ($page >= $total_links ? ' disabled' : '') . '">
+            <a href="javascript:void(0)" data-page_number="' . $next_id . '" class="page-link">Next</a>
+        </li>
+    ';
+
+    $output .= $previous_link . $next_link;
+
+    $output .= '
+            </ul>
+        </div>   
+        ';
+    echo $output;
+
+    // echo $output;
+}

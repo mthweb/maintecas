@@ -1,6 +1,4 @@
 <?php
-
-
 // import des controllers, afin de faciliter la manipulation des données
 // de nos différentes classes
 include_once('../controllers/cnx.php');
@@ -10,6 +8,7 @@ include_once('../controllers/rendreController.php');
 include_once('../controllers/effectuerController.php');    
 include_once('../controllers/serviceController.php');    
 
+
 // on instancie les classes (création des objets)
 $objKey    = new keywordControleur();
 $objRend   = new rendreControleur();
@@ -17,14 +16,21 @@ $objEff    = new effectuerController();
 $objServ   = new serviceControleur();
 
 ?>
-
+<!-- naivigation -->
+<?php include_once('navigation.php') ?>
+<!-- naivigation -->
+         
 <!-- navbar retour-->
-<div class="d-flex pb-3 mb-1 bg-dark shadow-sm">
-    <a href="../../index.php" class="btn text-white border-0 mt-3 me-3">
-        <i class="fa fa-chevron-left me-2"></i>
-        <!-- <img src="../assets/arrow.png" width="30" alt=""> -->
-        <span class="fw-bold">Collection maintecas</span>
-    </a>
+<div class="d-flex mt-4 pb-3 mb-1 bg-secondary shadow-sm">
+    <!-- <a href="#" class="btn text-white border-0 mt-3 me-3">
+        <!-- <i class="fa fa-chevron-left me-2"></i> -->
+        <!-- <img src="../assets/arrow.png" width="30" alt=""> --
+        <span class="fw-bold h5 "></span>
+    </a> -->
+
+    <div class="text-center text-md-start mt-4 container text-white">
+        <h5 class="fw-bold">Tous les prestataires</h5>
+    </div>
 
     <!-- label -->
     <div class="text-center pt-4"></div>
@@ -36,208 +42,252 @@ $objServ   = new serviceControleur();
 </div>
 <!-- /navbar retour -->
 
-<!-- partial:index.partial.html -->
-<div class="col-12 col-md-12 bg-body pt-2 pb-2 mb-4">
-    <!-- slider service -->
-    <div id="horizontal-nav" class="pb-4 container-fluid shadow-sm">
-        <div class="btn-prev" role="button" tabindex="0">
-            <svg viewBox="0 0 24 24">
-            <path d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z" fill="hsl(141, 15%, 50%)">
-            </path>
-        </svg>
+
+
+<!-- content secondary -->
+<main class="mt-3 pb-5" >
+    <!-- container -->
+    <div class="mt-1 mb-0 pt-2 z-5">
+        <!-- titre -->
+        <div class="container mb-3 d-flex justify-content-between">
+            <h5 class="fw-bold">Quel profil recherchez- <br>vous ?</h5>
+            <div>
+                <div id="swiper-button-prev" class="rounded-5 border-dark btn btn-outline-dark"><i class="fa fa-chevron-left"></i></div>
+                <div id="swiper-button-next" class="rounded-5 border-dark btn btn-outline-dark"><i class="fa fa-chevron-right"></i></div>
+            </div>
+        </div>
+        <!-- /titre -->
+
+        <!-- vue -->
+        <div class="swiper">
+            <div class="slide-content">
+                <div class="card-wrapper swiper-wrapper">
+                    <?php
+                        // appel de la méthode
+                        $stmt_service = $objServ->selectionneServiceTous();
+
+                        
+                        
+                        // Nous récupérons tous les services de l'application
+                        // A cela nous allons appreté une page qui va permettre d'afficher
+                        // tous les techniciens, les ouvriers et les entreprises qui sont 
+                        // concerné par le service
+                        while($data_service = $stmt_service->fetch()){
+                            // nous récupérons les données dans des variables en vue de permettre
+                            // une mise à jour des infos simple
+                            $codservice = $data_service['codserv'];
+                            $libservice = $data_service['libserv'];
+
+                            // print_r($data_service);
+                    ?>     
+                        <div class="card border-0 swiper-slide">
+                            <div class="card-title text-white rounded-3 pt-5 pb-5" style="background-image: url('../../assets/images/millenium-image-card.png'); background-size: cover; background-position: center;">
+                                <div class="container">
+                                    <h3><?= $libservice ?></h3>
+                                </div>
+                            </div>
+                    
+                            <div class="card-body bg-light pb-5">
+                                <p>
+                                    Une variété de service, tout au même endroit.
+                                </p>
+                                
+                                <a href="service.php?id=<?= $codservice ?>&text=<?= sha1($codservice) ?>&info=<?= $libservice ?>" class="btn btn-dark">
+                                    voir plus
+                                </a>
+                            </div>
+                        </div>
+                    <?php
+                        }
+
+                        // $objCnx->closeConnection();
+                    ?>                   
+                </div>
+            </div>
+
+            <!-- <div class="swiper-button-next swiper-navBtn"></div>
+            <div class="swiper-button-prev swiper-navBtn"></div> -->
+            <!-- <div class="swiper-pagination"></div> -->
+        </div>
+
+        <!-- <div class="container mt-3 text-end mb-3">
+            <a href="" class="btn btn-dark">
+                voir tous
+            </a>
+        </div> -->
     </div>
+<!-- /container -->
+</main>
+<!-- /content secondary -->
 
-    <div class="menu-wrap">
-        <ul class="menu">
-            <?php
-                // Nous récupérons tous les services au moyen de la boucle
-                $stmt_service = $objServ->AfficherServiceTous();
+<!-- content -->
+<main class="container">
 
-                while ($fetch_service = $stmt_service->fetch()) {
-                    $code_service    = $fetch_service['codserv'];
-                    $libelle_service = $fetch_service['libserv'];
-                ?>
-
-                    <li class="list-item">
-                        <a href="./service.php?id=<?= $code_service ?>&text=<?= sha1($libelle_service) ?>&info=<?= $libelle_service ?>" class="pill"><?= $libelle_service ?></a>
-                    </li>
-
-                <?php
-                }
-                ?>      
-            </ul>
-        </div>
-            
-        <div class="btn-next" role="button">
-            <svg viewBox="0 0 24 24">
-                <path d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z" fill="hsl(141, 15%, 50%)">
-                </path>
-            </svg>
-        </div>
+    <!-- field -->
+    <div class="input-group mb-5">
+        <!-- <span class="input-group-text fa fa-envelope pt-3 bg-white"></span> -->
+        <input type="search" id="input-text" required class="form-control profile_search pt-2 pb-2" name="input" placeholder="Saisissez votre besoin ou choisissez un technicien">
+        <!-- <button type="submit" name="request" class="input-group-text btn btn-light z-0 fa fa-send-o pt-1"></button> -->
+        
+        <div id="suggestions-services" class="suggestions-services container-fluid bg-light d-none text-dark mb-3"></div>
+        <!-- contrainte -->
+        <input type="hidden" name="action" value="trouve">
     </div>
-    <!-- /slider service --> 
-</div>
-<!-- /partial -->
+    <!-- form besoin -->
 
-<!-- vue -->
-<div class="container-fluid">
-    <!-- row -->
-    <div class="row ">
-        <!-- colonne 1 -->
-        <div class="col-12 col-md-3 mb-3">
-            <!-- card -->
-            <div class="card bg-light border-0 rounded-0 pt-2 pb-2 mb-3">
-                <div class="card-body">
-                    <!-- titre -->
-                    <div class="mb-3">
-                        <h5 class="fw-bold">Les plus notés</h5>
-                    </div>
-                    <!-- /titre -->
+    <!-- filtre -->
+    <div class="container mb-3 d-flex justify-content-between">
+        <h5 class="fw-bold"><span class="text-uppercase">à</span> proximité</h5>
 
-                    <!-- divider -->
-                    <div class="mb-3">
-                        <hr>
-                    </div>
-                    <!-- /divider -->
+        <div>
+            <a href="" class="btn btn-dark rounded-circle"><i class="fa fa-flash p-1 small"></i></a>
+            <a href="" class="btn btn-dark rounded-circle"><i class="fa fa-search small"></i></a>
 
-                    <!-- load data -->
-                    <div>
-                        <div id="result_note_view"></div>
-                    </div>
-                    <!-- /load data -->
-                </div>
-            </div>
-            <!-- /card -->
-
-            <!-- card -->
-            <div class="card bg-light border-0 rounded-0 pt-2 pb-2">
-                <div class="card-body">
-                    <!-- titre -->
-                    <div class="mb-3">
-                        <h5 class="fw-bold">Catégories</h5>
-                    </div>
-                    <!-- /titre -->
-
-                    <!-- divider -->
-                    <div class="mb-3">
-                        <hr>
-                    </div>
-                    <!-- /divider -->
-
-                    <!-- load data -->
-                    <div>
-                        <div id="result_categorie_coll"></div>
-                    </div>
-                    <!-- /load data -->
-                </div>
-            </div>
-            <!-- /card -->
-        </div>
-        <!-- /colonne 1 -->
-
-        <!-- colonne 2 -->
-        <div class="col-12 col-md-6 mb-3 ">
-            <!-- card -->
-            <div class="card bg-light border-0 rounded-0 pt-2 pb-2 mb-3">
-                <div class="card-body">
-                    <!-- titre -->
-                    <div class="mb-3">
-                        <h5 class="fw-bold">Catalogue maintecas</h5>
-                    </div>
-                    <!-- /titre -->
-
-                    <!-- divider -->
-                    <div class="mb-3">
-                        <hr>
-                    </div>
-                    <!-- /divider -->
-
-                    <!-- load data -->
-                    <div>
-                        <div id="result_profile_tous"></div>
-                    </div>
-                    <!-- /load data -->
-                </div>
-            </div>
-            <!-- /card -->
-
-            
-        </div>
-        <!-- /colonne 2 -->
-
-        <!-- colonne 3 -->
-        <div class="col-12 col-md-3 mb-3">
-            <!-- card -->
-            <div class="card bg-light border-0 rounded-0 pt-2 pb-2">
-                <div class="card-body">
-                    <!-- titre -->
-                    <div class="mb-3">
-                        <h5 class="fw-bold">Domaines</h5>
-                    </div>
-                    <!-- /titre -->
-
-                    <!-- divider -->
-                    <div class="mb-3">
-                        <hr>
-                    </div>
-                    <!-- /divider -->
-
-                    <!-- load data -->
-                    <div>
-                        <div id="result_domaine"></div>
-                    </div>
-                    <!-- /load data -->
-                </div>
-            </div>
-            <!-- /card -->
-        </div>
-        <!-- /colonne 3 -->
-
-
-    </div>
-    <!-- /row -->
-</div>
-<!-- /vue -->
-
-<!-- vue -->
-<div class="container-fluid mt-5 bg-light pt-4 pb-5">
-    <nav>
-        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-dispo-tab" data-bs-toggle="tab" data-bs-target="#nav-dispo" type="button" role="tab" aria-controls="nav-dispo" aria-selected="true">
-                disponibilité
+            <button id="filterBtn" type="button" class="btn btn-light filter-btn rounded-circle">
+                <img src="../../assets/icones/parametre.png" alt="" width="15" srcset="">
             </button>
+            
 
-            <!-- <button class="nav-link" id="nav-service-tab" data-bs-toggle="tab" data-bs-target="#nav-service" type="button" role="tab" aria-controls="nav-service" aria-selected="false">
-                services
-            </button> -->
+            <!-- Filters Content -->
+            <div class="filters-container p-3 border">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6>Filtrer par évaluation</h6>
+                        <div>
+                            <input type="radio" id="all" name="evaluation" checked>
+                            <label for="all">Tous</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="best" name="evaluation">
+                            <label for="best">Les mieux notés</label>
+                        </div>
+                    </div>
 
-            <button class="nav-link" id="nav-zone-tab" data-bs-toggle="tab" data-bs-target="#nav-zone" type="button" role="tab" aria-controls="nav-zone" aria-selected="false">
-                <i class="fa fa-globe"></i> zone
-            </button>
-        </div>
-    </nav>
+                    <div class="col-md-3">
+                        <h6>Filtrer par tarif horaire</h6>
+                        <div><input type="checkbox"> Moins de 30 €</div>
+                        <div><input type="checkbox"> De 30 € à 50 €</div>
+                        <div><input type="checkbox" checked> De 50 € à 100 €</div>
+                        <div><input type="checkbox"> Plus de 100 €</div>
+                    </div>
 
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active text-center pt-5" id="nav-dispo" role="tabpanel" aria-labelledby="nav-dispo-tab">
-            <div class="spinner-border text-dark" role="status">
-                <span class="visually-hidden">Loading...</span>
+                    <div class="col-md-3">
+                        <h6>Filtrer par projets réalisés</h6>
+                        <div><input type="checkbox"> Plus de 20 projets</div>
+                        <div><input type="checkbox"> De 10 à 20 projets</div>
+                        <div><input type="checkbox"> De 5 à 10 projets</div>
+                        <div><input type="checkbox"> Moins de 5 projets</div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6>Filtrer par ancienneté</h6>
+                        <div><input type="checkbox"> Plus de 5 ans</div>
+                        <div><input type="checkbox"> De 1 à 5 ans</div>
+                        <div><input type="checkbox"> Moins d’un an</div>
+                        <h6>Critères supplémentaires</h6>
+                        <div><input type="checkbox"> Identité vérifiée</div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary">Appliquer</button>
+                    <button class="btn btn-secondary">Effacer</button>
+                </div>
             </div>
-            Traitement en cours...
-        </div>
+            <!-- Filters Content -->
 
-        <div class="tab-pane fade text-center pt-5" id="nav-service" role="tabpanel" aria-labelledby="nav-service-tab">
-            <div class="spinner-border text-dark" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            Traitement en cours...
-        </div>
-
-        <div class="tab-pane fade text-center pt-5" id="nav-zone" role="tabpanel" aria-labelledby="nav-zone-tab">
-            <div class="spinner-border text-dark" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            Traitement en cours...
         </div>
     </div>
-</div>
-<!-- /vue -->
+    <!-- /filtre -->
+
+    <!-- vue -->
+    <div class="pt-5 pb-5">
+        <!-- row -->
+        <div class="row">
+            <!-- colonne 1 -->
+            <div class="col-12 col-md-3">
+                <div class="card bg-light border-0 rounded">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Filtrer par catégorie</h5>
+                        <ul class="list-unstyled category-filter">
+                            application filtre en cours...
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /colonne 1 -->
+
+            <!-- colonne 2 -->
+            <div class="col-12 col-md-9">
+                <div id="dynamic_content_suggession"></div>
+            </div>
+            <!-- /colonne 2 -->
+            
+        </div>
+        <!-- /row -->
+    
+    </div>
+    <!-- /vue -->
+
+</main>
+<!-- /content -->
+
+<!-- content -->
+<main class="bg-light pt-5 pb-5">
+    <!-- titre -->
+    <div class="mt-5 mb-5">
+        <h5 class="fw-bold h2 text-center">
+            Plus de 100 000 Techniciens disponibles pour réaliser vos projets
+        </h5>
+    </div>
+
+    <!-- button -->
+    <div class="text-center">
+        <a href="" class="btn btn-dark">
+            Commander un service
+        </a>
+    </div>
+</main>
+<!-- /content -->
+
+
+<!-- card -->
+<script src="../../styles/card/js/script.js"></script>
+<script src="../../styles/card/js/swiper-bundle.min.js"></script>
+
+<script>
+
+    document.getElementById('filterBtn').addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+
+
+    var swiper = new Swiper(".slide-content", {
+        slidesPerView: 3,
+        spaceBetween: 25,
+        loop: true,
+        centerSlide: 'true',
+        fade: 'true',
+        grabCursor: 'true',
+        pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+        },
+        navigation: {
+        nextEl: "#swiper-button-next",
+        prevEl: "#swiper-button-prev",
+        },
+
+        breakpoints:{
+            0: {
+                slidesPerView: 1,
+            },
+            520: {
+                slidesPerView: 2,
+            },
+            950: {
+                slidesPerView: 3,
+            },
+        },
+    });
+</script>

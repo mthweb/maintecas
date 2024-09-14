@@ -201,5 +201,18 @@ class rendreControleur
         
         return $stmt;
     }
+
+    public function AfficherProfileParDomaine($val, $start , $limite){
+        $query = "SELECT * FROM {$this->tablename}
+                    JOIN {$this->tableJoint1} ON {$this->tablename}.employe = {$this->tableJoint1}.idprestataire
+                    JOIN {$this->tableJoint2} On {$this->tablename}.`service`= {$this->tableJoint2}.codserv
+                    JOIN {$this->tableJoint3} On {$this->tableJoint1}.`type_compte`= {$this->tableJoint3}.codtypcompte
+                    JOIN {$this->tableJoint4} ON {$this->tableJoint1}.`categorie`= {$this->tableJoint4}.codcat
+                    WHERE `domaine` = ?  LIMIT  {$start}, {$limite}";
+        $stmt = $this->cnx->prepare($query);
+        $stmt->execute([$val]);
+        
+        return $stmt;
+    }
     
 }
